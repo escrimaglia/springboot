@@ -32,7 +32,7 @@ public class AutosController {
         try {
             return svcAuto.getAuto(modelo);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe Auto Modelo: " + modelo.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto("no existe un Auto modelo " + modelo.toString()),null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -42,7 +42,7 @@ public class AutosController {
         try {
             return svcAuto.addAuto(auto);
         } catch (ServiceException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no es posible agregar auto Modelo: " + auto.getModelo().toString()),null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<MsgDto>(new MsgDto("no es posible agregar un Auto modelo " + auto.getModelo().toString()),null, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -52,7 +52,7 @@ public class AutosController {
         try {
             return svcAuto.changeAuto(auto,modelo);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe Auto Modelo: " + modelo.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto("no existe un Auto Modelo " + modelo.toString()),null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -62,7 +62,7 @@ public class AutosController {
         try {
             return svcAuto.delAuto(modelo);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe Auto Modelo: " + modelo.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto("no existe un Auto Modelo " + modelo.toString()),null, HttpStatus.NOT_FOUND);
         }
     }
 }

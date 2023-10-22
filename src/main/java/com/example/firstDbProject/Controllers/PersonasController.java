@@ -37,7 +37,7 @@ public class PersonasController
         try {
             return svcPersona.getPersona(dni);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe persona DNI: " + dni.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto("no existe una Persona con DNI " + dni.toString()),null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -47,7 +47,7 @@ public class PersonasController
         try {
             return svcPersona.addPersona(persona);
         } catch (ServiceException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no es posible agregar persona DNI: " + persona.getDni().toString()),null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<MsgDto>(new MsgDto("no es posible agregar un Persona con DNI: " + persona.getDni().toString()),null, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -57,7 +57,7 @@ public class PersonasController
         try {
             return svcPersona.changePersona(persona,dni);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe persona DNI: " + dni.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto("no existe una Persona con DNI: " + dni.toString()),null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -67,7 +67,7 @@ public class PersonasController
         try {
             return svcPersona.delPersona(dni);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe persona DNI: " + dni.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto("no existe una persona con DNI: " + dni.toString()),null, HttpStatus.NOT_FOUND);
         }
 
     }
