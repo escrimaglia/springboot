@@ -4,7 +4,6 @@ import com.example.firstDbProject.DtoObjects.AutoDto;
 import com.example.firstDbProject.DtoObjects.MsgDto;
 import com.example.firstDbProject.Models.Auto;
 import com.example.firstDbProject.Service.AutosService;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +26,12 @@ public class AutosController {
 
     // Listado un Auto
     @GetMapping("/api/auto/{modelo}")
-    @ResponseBody
+    //@ResponseBody
     public Object getAuto(@PathVariable("modelo") Integer modelo) {
         try {
             return svcAuto.getAuto(modelo);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe un Auto modelo " + modelo.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -41,18 +40,28 @@ public class AutosController {
     public Object addAuto(@RequestBody Auto auto) {
         try {
             return svcAuto.addAuto(auto);
-        } catch (ServiceException e) {
+        } catch (Exception e) {
             return new ResponseEntity<MsgDto>(new MsgDto("no es posible agregar un Auto modelo " + auto.getModelo().toString()),null, HttpStatus.BAD_REQUEST);
         }
     }
 
     // Modifica un Auto
     @PutMapping("/api/auto/{modelo}")
+    public Object changeWholeAuto(@RequestBody Auto auto, @PathVariable("modelo") Integer modelo) {
+        try {
+            return svcAuto.changePutAuto(auto,modelo);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Modifica algunos atributos de un auto
+    @PatchMapping("/api/auto/{modelo}")
     public Object changeAuto(@RequestBody Auto auto, @PathVariable("modelo") Integer modelo) {
         try {
-            return svcAuto.changeAuto(auto,modelo);
+            return svcAuto.changePatchAuto(auto,modelo);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe un Auto Modelo " + modelo.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null,HttpStatus.NOT_FOUND);
         }
     }
 
@@ -62,7 +71,7 @@ public class AutosController {
         try {
             return svcAuto.delAuto(modelo);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<MsgDto>(new MsgDto("no existe un Auto Modelo " + modelo.toString()),null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null, HttpStatus.NOT_FOUND);
         }
     }
 }
