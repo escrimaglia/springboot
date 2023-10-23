@@ -1,9 +1,9 @@
 # Aplicaciones BackEnd UTN FRC
 
-## springboot 
-crear microservicios con Spring Boot
+## Objetivo 
+crear microservicios usando Spring Boot
 
-## Port
+## Service Port
 8081
 
 ## Data Base
@@ -11,3 +11,5 @@ MySql
 
 ## Documentación API
 localhost:8081/api/swagger-ui.html
+
+#### By Ed Scrimaglia
