@@ -7,6 +7,7 @@ import com.example.firstDbProject.Service.AutosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -72,5 +73,11 @@ public class AutosController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null, HttpStatus.NOT_FOUND);
         }
+    }
+
+    // Handling error Json body incorrecto
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<MsgDto> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest().body(new MsgDto("Invalid Request Body"));
     }
 }
