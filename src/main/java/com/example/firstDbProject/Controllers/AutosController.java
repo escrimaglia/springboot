@@ -26,7 +26,6 @@ public class AutosController {
 
     // Listado un Auto
     @GetMapping("/api/auto/{modelo}")
-    //@ResponseBody
     public Object getAuto(@PathVariable("modelo") Integer modelo) {
         try {
             return svcAuto.getAuto(modelo);
