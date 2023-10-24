@@ -30,7 +30,7 @@ public class PersonaService {
     public MsgDto addPersona(Persona nueva) throws ServiceException {
         Integer dni = nueva.getDni();
         repoPersona.save(nueva);
-        return new MsgDto("Persona DNI: " + dni.toString() + " agregada al padrón");
+        return new MsgDto("Persona con DNI " + dni.toString() + " agregada al padrón");
     }
 
     // Elimina una Persona
@@ -42,22 +42,24 @@ public class PersonaService {
             auto.setPropietario(null);
         }
         repoAuto.saveAll(autos);
-        return new MsgDto("Persona DNI: " + dni.toString() + " eliminada del padrón");
+        return new MsgDto("Persona con DNI " + dni.toString() + " eliminada del padrón");
     }
 
     // Modifica una Persona
-    public MsgDto changePutPersona(Persona change, Integer dni) throws NoSuchElementException {
-        Persona persona = repoPersona.findById(dni).get();
+    public MsgDto changePutPersona(Persona change, Integer dni) {
+        Optional<Persona> persona = repoPersona.findById(dni);
+        if (persona.isEmpty()) {
+            throw new NoSuchElementException("No existe una persona con DNI " + dni.toString());
+        }
         repoPersona.save(change);
-        return new MsgDto("Persona DNI: " + dni.toString() + " modificada");
+        return new MsgDto("Persona con DNI " + dni.toString() + " modificada");
     }
 
     // Modifica algunos atibutos de una Persona
     public MsgDto changePatchPersona(Persona change, Integer dni) {
-
         Optional<Persona> persona = repoPersona.findById(dni);
         if (persona.isEmpty()) {
-            throw new NoSuchElementException("No existe Persona con DNI " + dni);
+            throw new NoSuchElementException("No existe una Persona con DNI " + dni);
         }
         if (change.getName() != null) {
             persona.get().setName(change.getName());
@@ -72,7 +74,7 @@ public class PersonaService {
             persona.get().setAge(change.getAge());
         }
         repoPersona.save(persona.get());
-        return new MsgDto("Persona con DNI: " + dni.toString() + " modificada");
+        return new MsgDto("Persona con DNI " + dni.toString() + " modificada");
     }
 
     // Lista una Persona
