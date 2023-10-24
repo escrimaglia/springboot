@@ -39,10 +39,10 @@ public class AutoController {
 
     // Agrega un nuevo Auto
     @PostMapping("/api/auto")
-    public ResponseEntity<MsgDto> addAuto(@RequestBody Auto auto) {
+    public ResponseEntity addAuto(@RequestBody Auto auto) {
         try {
             MsgDto addResult = svcAuto.addAuto(auto);
-            return ResponseEntity.ok(addResult);
+            return ResponseEntity.status(HttpStatus.CREATED).body(addResult);
         } catch (Exception e) {
             return new ResponseEntity<MsgDto>(new MsgDto("no es posible agregar un Auto modelo " + auto.getModelo().toString()),null, HttpStatus.BAD_REQUEST);
         }
