@@ -18,6 +18,15 @@ import java.util.Optional;
 public class AutoService {
     @Autowired
     private AutoRepository repoAuto;
+
+//    Otra forma de injectar dependencias es a trevés del constructor
+
+//    AutoRepository repoAuto;
+//
+//    public void AutoService(AutoRepository repoAuto) {
+//        this.repoAuto = repoAuto;
+//    }
+
     @Autowired
     private PersonaRepository repoPersona;
 
