@@ -3,7 +3,7 @@ package com.example.firstDbProject.Controllers;
 import com.example.firstDbProject.DtoObjects.MsgDto;
 import com.example.firstDbProject.Models.Persona;
 import com.example.firstDbProject.DtoObjects.PersonaDto;
-import com.example.firstDbProject.Service.PersonasService;
+import com.example.firstDbProject.Service.PersonaService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-public class PersonasController
+public class PersonaController
 {
     @Autowired
-    private PersonasService svcPersona;
+    private PersonaService svcPersona;
 
     // Status del Servicio
     @GetMapping("/api/status")

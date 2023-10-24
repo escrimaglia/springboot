@@ -4,8 +4,8 @@ import com.example.firstDbProject.DtoObjects.MsgDto;
 import com.example.firstDbProject.DtoObjects.PersonaDto;
 import com.example.firstDbProject.Models.Auto;
 import com.example.firstDbProject.Models.Persona;
-import com.example.firstDbProject.Repository.AutosRepository;
-import com.example.firstDbProject.Repository.PersonasRepository;
+import com.example.firstDbProject.Repository.AutoRepository;
+import com.example.firstDbProject.Repository.PersonaRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +17,13 @@ import java.util.NoSuchElementException;
 
 
 @Service
-public class PersonasService {
+public class PersonaService {
 
     @Autowired
-    private PersonasRepository  repoPersona;
+    private PersonaRepository repoPersona;
 
     @Autowired
-    private AutosRepository repoAuto;
+    private AutoRepository repoAuto;
 
     // Agrega una Persona
     public MsgDto addPersona(Persona nueva) throws ServiceException {

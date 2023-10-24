@@ -3,7 +3,7 @@ package com.example.firstDbProject.Controllers;
 import com.example.firstDbProject.DtoObjects.AutoDto;
 import com.example.firstDbProject.DtoObjects.MsgDto;
 import com.example.firstDbProject.Models.Auto;
-import com.example.firstDbProject.Service.AutosService;
+import com.example.firstDbProject.Service.AutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,22 +14,24 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-public class AutosController {
+public class AutoController {
 
     @Autowired
-    private AutosService svcAuto;
+    private AutoService svcAuto;
 
     // Listado de Autos
     @GetMapping("/api/autos")
-    public List<AutoDto> getAutos() {
-        return svcAuto.getAutos();
+    public ResponseEntity<List<AutoDto>> getAutos() {
+        List<AutoDto> autos =  svcAuto.getAutos();
+        return ResponseEntity.ok(autos);
     }
 
     // Listado un Auto
     @GetMapping("/api/auto/{modelo}")
-    public Object getAuto(@PathVariable("modelo") Integer modelo) {
+    public ResponseEntity getAuto(@PathVariable("modelo") Integer modelo) {
         try {
-            return svcAuto.getAuto(modelo);
+            AutoDto auto = svcAuto.getAuto(modelo);
+            return ResponseEntity.ok(auto);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null, HttpStatus.NOT_FOUND);
         }
@@ -37,9 +39,10 @@ public class AutosController {
 
     // Agrega un nuevo Auto
     @PostMapping("/api/auto")
-    public Object addAuto(@RequestBody Auto auto) {
+    public ResponseEntity<MsgDto> addAuto(@RequestBody Auto auto) {
         try {
-            return svcAuto.addAuto(auto);
+            MsgDto addResult = svcAuto.addAuto(auto);
+            return ResponseEntity.ok(addResult);
         } catch (Exception e) {
             return new ResponseEntity<MsgDto>(new MsgDto("no es posible agregar un Auto modelo " + auto.getModelo().toString()),null, HttpStatus.BAD_REQUEST);
         }
@@ -47,9 +50,10 @@ public class AutosController {
 
     // Modifica un Auto
     @PutMapping("/api/auto/{modelo}")
-    public Object changeWholeAuto(@RequestBody Auto auto, @PathVariable("modelo") Integer modelo) {
+    public ResponseEntity<MsgDto> changeWholeAuto(@RequestBody Auto auto, @PathVariable("modelo") Integer modelo) {
         try {
-            return svcAuto.changePutAuto(auto,modelo);
+            MsgDto putResult = svcAuto.changePutAuto(auto,modelo);
+            return ResponseEntity.ok(putResult);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null, HttpStatus.NOT_FOUND);
         }
@@ -57,9 +61,10 @@ public class AutosController {
 
     // Modifica algunos atributos de un auto
     @PatchMapping("/api/auto/{modelo}")
-    public Object changeAuto(@RequestBody Auto auto, @PathVariable("modelo") Integer modelo) {
+    public ResponseEntity<MsgDto> changeAuto(@RequestBody Auto auto, @PathVariable("modelo") Integer modelo) {
         try {
-            return svcAuto.changePatchAuto(auto,modelo);
+            MsgDto pathcResult = svcAuto.changePatchAuto(auto,modelo);
+            return ResponseEntity.ok(pathcResult);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null,HttpStatus.NOT_FOUND);
         }
@@ -67,9 +72,10 @@ public class AutosController {
 
     // Elimina un Auto
     @DeleteMapping("/api/auto/{modelo}")
-    public Object delAuto(@PathVariable("modelo") Integer modelo) {
+    public ResponseEntity<MsgDto> delAuto(@PathVariable("modelo") Integer modelo) {
         try {
-            return svcAuto.delAuto(modelo);
+            MsgDto delResult = svcAuto.delAuto(modelo);
+            return ResponseEntity.ok(delResult);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<MsgDto>(new MsgDto(e.getMessage().toString()),null, HttpStatus.NOT_FOUND);
         }

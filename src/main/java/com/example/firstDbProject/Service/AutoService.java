@@ -4,8 +4,8 @@ import com.example.firstDbProject.DtoObjects.AutoDto;
 import com.example.firstDbProject.DtoObjects.MsgDto;
 import com.example.firstDbProject.Models.Auto;
 import com.example.firstDbProject.Models.Persona;
-import com.example.firstDbProject.Repository.AutosRepository;
-import com.example.firstDbProject.Repository.PersonasRepository;
+import com.example.firstDbProject.Repository.AutoRepository;
+import com.example.firstDbProject.Repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +15,11 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-public class AutosService {
+public class AutoService {
     @Autowired
-    private AutosRepository repoAuto;
+    private AutoRepository repoAuto;
     @Autowired
-    private PersonasRepository repoPersona;
+    private PersonaRepository repoPersona;
 
     // Agrega un Auto
     public MsgDto addAuto(Auto nuevo) throws Exception {
