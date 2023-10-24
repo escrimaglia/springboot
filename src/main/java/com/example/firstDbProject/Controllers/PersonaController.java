@@ -52,7 +52,7 @@ public class PersonaController
     public ResponseEntity<MsgDto> addPersona(@RequestBody Persona persona) {
         try {
             MsgDto postResult = svcPersona.addPersona(persona);
-            return ResponseEntity.ok(postResult);
+            return ResponseEntity.status(HttpStatus.CREATED).body(postResult);
         } catch (ServiceException e) {
             return new ResponseEntity<MsgDto>(new MsgDto("no es posible agregar un Persona con DNI: " + persona.getDni().toString()),null, HttpStatus.BAD_REQUEST);
         }
