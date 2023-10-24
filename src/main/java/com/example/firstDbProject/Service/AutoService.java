@@ -38,7 +38,7 @@ public class AutoService {
     }
 
     // Modifica todos los atributos de un Auto
-    public MsgDto changePutAuto(Auto change, Integer modelo) throws NoSuchElementException {
+    public MsgDto changePutAuto(Auto change, Integer modelo) {
         Optional<Auto> auto = repoAuto.findById(modelo);
         if (auto.isEmpty()) {
             throw new NoSuchElementException("No existe Auto modelo " + modelo);

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @Service
@@ -45,10 +46,33 @@ public class PersonaService {
     }
 
     // Modifica una Persona
-    public MsgDto changePersona(Persona change, Integer dni) throws NoSuchElementException {
+    public MsgDto changePutPersona(Persona change, Integer dni) throws NoSuchElementException {
         Persona persona = repoPersona.findById(dni).get();
         repoPersona.save(change);
         return new MsgDto("Persona DNI: " + dni.toString() + " modificada");
+    }
+
+    // Modifica algunos atibutos de una Persona
+    public MsgDto changePatchPersona(Persona change, Integer dni) {
+
+        Optional<Persona> persona = repoPersona.findById(dni);
+        if (persona.isEmpty()) {
+            throw new NoSuchElementException("No existe Persona con DNI " + dni);
+        }
+        if (change.getName() != null) {
+            persona.get().setName(change.getName());
+        }
+        if (change.getLastName() != null) {
+            persona.get().setLastName(change.getLastName());
+        }
+        if (change.getCity() != null) {
+            persona.get().setCity(change.getCity());
+        }
+        if (change.getAge() != null) {
+            persona.get().setAge(change.getAge());
+        }
+        repoPersona.save(persona.get());
+        return new MsgDto("Persona con DNI: " + dni.toString() + " modificada");
     }
 
     // Lista una Persona

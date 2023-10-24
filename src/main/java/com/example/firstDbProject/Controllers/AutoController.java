@@ -59,7 +59,7 @@ public class AutoController {
         }
     }
 
-    // Modifica algunos atributos de un auto
+    // Modifica algunos atributos de un Auto
     @PatchMapping("/api/auto/{modelo}")
     public ResponseEntity<MsgDto> changeAuto(@RequestBody Auto auto, @PathVariable("modelo") Integer modelo) {
         try {
